@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amurtone <amurtone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/13 11:05:38 by amurtone          #+#    #+#             */
-/*   Updated: 2019/12/13 13:13:44 by amurtone         ###   ########.fr       */
+/*   Created: 2019/12/13 13:00:24 by amurtone          #+#    #+#             */
+/*   Updated: 2019/12/13 13:11:24 by amurtone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "../includes/fdf.h"
 
-# include <fcntl.h>
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <math.h>
-# include "fdf.h"
-# include <mlx.h>
-# include "../libft/libft.h"
-
-typedef struct      s_cords
+int     main()
 {
-    /* data */
-}                   t_cords;
+    void *mlx_ptr;
+    void *win_ptr;
 
-
-#endif
+    mlx_ptr = mlx_init();   
+    win_ptr = mlx_new_window(mlx_ptr, 500, 500, "super awesome");
+    mlx_loop(mlx_ptr);
+}
