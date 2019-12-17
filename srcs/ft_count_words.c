@@ -1,31 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_count_words.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amurtone <amurtone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/13 13:00:24 by amurtone          #+#    #+#             */
-/*   Updated: 2019/12/17 17:25:05 by amurtone         ###   ########.fr       */
+/*   Created: 2019/12/17 17:39:06 by amurtone          #+#    #+#             */
+/*   Updated: 2019/12/17 17:46:11 by amurtone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-int     main()
+char	*ft_next_word(const char *s, char c, int skip)
 {
-    /*
-    void *mlx_ptr;
-    void *win_ptr;
+	if (skip)
+		while (*s != '\0' && *s == c)
+			s++;
+	else
+		while (*s != '\0' && *s != c)
+			s++;
+	return (s);
+}
 
-    mlx_ptr = mlx_init();   
-    win_ptr = mlx_new_window(mlx_ptr, 500, 500, "super awesome");
-    mlx_loop(mlx_ptr);
-    */
-   t_fdf *data;
+int		ft_count_words(const char *s, char c)
+{
+	int i;
 
-   data = (t_fdf *)malloc(sizeof(t_fdf));
-   read_map(data);
-
-
+	i = 0;
+	while (*s != '\0')
+	{
+		s = ft_next_word(s, c, 1);
+		if (*s != '\0')
+		{
+			i++;
+			s = ft_next_word(s, c, 0);
+		}
+	}
+	return (i);
 }
