@@ -6,13 +6,13 @@
 /*   By: amurtone <amurtone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 17:39:06 by amurtone          #+#    #+#             */
-/*   Updated: 2019/12/17 17:46:11 by amurtone         ###   ########.fr       */
+/*   Updated: 2019/12/17 18:22:27 by amurtone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-char	*ft_next_word(const char *s, char c, int skip)
+const char	*ft_next_word(const char *s, char c, int skip)
 {
 	if (skip)
 		while (*s != '\0' && *s == c)

@@ -6,12 +6,12 @@
 #    By: amurtone <amurtone@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/12 11:23:10 by jwilen            #+#    #+#              #
-#    Updated: 2019/12/13 13:15:52 by amurtone         ###   ########.fr        #
+#    Updated: 2019/12/17 18:21:48 by amurtone         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
-SRCS = srcs/main.c
+SRCS = srcs/main.c srcs/read_map.c srcs/ft_count_words.c
 OBJ = $(subst .c,.o,$(SRCS))
 HEADER = includes/fdf.h
 FLAGS = -Wall -Wextra -Werror

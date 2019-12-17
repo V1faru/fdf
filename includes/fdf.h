@@ -6,7 +6,7 @@
 /*   By: amurtone <amurtone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 11:05:38 by amurtone          #+#    #+#             */
-/*   Updated: 2019/12/17 17:44:52 by amurtone         ###   ########.fr       */
+/*   Updated: 2019/12/17 18:25:50 by amurtone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,11 @@ typedef struct      s_fdf
     void *win_ptr;
 }                   t_fdf;
 
-char    *ft_next_word(const char *s, char c, int skip);
+const char    *ft_next_word(const char *s, char c, int skip);
 int     ft_count_words(const char *s, char c);
+void    read_map(char *map, t_fdf *data);
+void    fill_matrix(int *z_line, char *line);
+int     get_width(char *map);
+int     get_height(char *map);
 
 #endif
