@@ -6,7 +6,7 @@
 /*   By: amurtone <amurtone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 09:58:11 by amurtone          #+#    #+#             */
-/*   Updated: 2019/12/18 16:08:20 by amurtone         ###   ########.fr       */
+/*   Updated: 2019/12/19 18:32:31 by amurtone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ float   mod(float i)
 {
     return (i < 0) ? -i : i;
 }
-/*
+
 void    isometric(float *x, float *y, int z)
 {
     *x = (*x - *y) * cos(0.8);
     *y = (*x + *y) * sin(0.8) - z;
 }
-*/
+
 void    brsham(float x, float y, float x1, float y1, t_fdf *data)
 {
     float x_step;
@@ -43,11 +43,17 @@ void    brsham(float x, float y, float x1, float y1, t_fdf *data)
     y1 *= data->zoom;
     /* -----COLOR----- */
     data->color = (z || z1) ? 0xe80c0c : 0xffffff;
+    /* -----3D----- */
+    isometric(&x, &y, z);
+    isometric(&x1, &y1, z1);
+    /* -----shift----- */
+    x += 400;
+    y += 200;
+    x1 += 400;
+    y1 += 200;
+
     x_step = x1 - x;
     y_step = y1 - y;
-    /* -----3D----- */
-   // isometric(&x, &y, z);
-   // isometric(&x1, &y1, z1);
     max = MAX1(MOD(x_step), MOD(y_step));
     x_step /= max;
     y_step /= max;
@@ -70,9 +76,9 @@ void    draw_lines(t_fdf *data)
         x = 0;
         while(x < data->width)
         {
-            if (x < data->width -1)
+            if (x < data->width - 1)
                 brsham(x, y, x + 1, y, data);
-            if (y < data->height -1)
+            if (y < data->height - 1)
                 brsham(x, y, x, y + 1, data);
             x++;
         }
