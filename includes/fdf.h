@@ -6,7 +6,7 @@
 /*   By: amurtone <amurtone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 11:05:38 by amurtone          #+#    #+#             */
-/*   Updated: 2019/12/18 13:02:55 by amurtone         ###   ########.fr       */
+/*   Updated: 2019/12/20 10:44:35 by amurtone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct      s_fdf
     int **z_matrix;
     int zoom;
     int color;
+    int shift_x;
+    int shift_y;
 
 
     void    *mlx_ptr;

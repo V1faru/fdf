@@ -6,7 +6,7 @@
 /*   By: amurtone <amurtone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 09:58:11 by amurtone          #+#    #+#             */
-/*   Updated: 2019/12/19 18:32:31 by amurtone         ###   ########.fr       */
+/*   Updated: 2019/12/20 14:34:18 by amurtone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ void    brsham(float x, float y, float x1, float y1, t_fdf *data)
     isometric(&x, &y, z);
     isometric(&x1, &y1, z1);
     /* -----shift----- */
-    x += 400;
-    y += 200;
-    x1 += 400;
-    y1 += 200;
+    x += data->shift_x;
+    y += data->shift_y;
+    x1 += data->shift_x;
+    y1 += data->shift_y;
 
     x_step = x1 - x;
     y_step = y1 - y;

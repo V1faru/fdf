@@ -6,16 +6,26 @@
 /*   By: amurtone <amurtone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 13:00:24 by amurtone          #+#    #+#             */
-/*   Updated: 2019/12/18 14:52:21 by amurtone         ###   ########.fr       */
+/*   Updated: 2019/12/20 14:40:51 by amurtone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
 
-int     deal_key(int key/*, t_fdf *data*/)
+int     deal_key(int key, t_fdf *data)
 {
     ft_putnbr(key);
     ft_putchar('\n');
+    if (key == 126)
+        data->shift_y -= 10;
+    if (key == 125)
+        data->shift_y += 10;
+    if (key == 123)
+        data->shift_x -= 10;
+    if (key == 124)
+        data->shift_x += 10;
+    mlx_clear_window(data->mlx_ptr, data->win_ptr);
+    draw_lines(data);
     return (0);
 }
 
