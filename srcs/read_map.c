@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-
+/*
 int     get_height(char *map)
 {
     char *line;
@@ -42,6 +42,32 @@ int     get_width(char *map)
     close(fd);
     return (width);
 }
+*/
+int     get_mem_alloc(char *map, int hw)
+{
+    char *line;
+    int fd;
+    int ret;
+
+    fd = open(map, O_RDONLY, 0);
+    if (hw)
+    {
+        ret = 0;
+        while(get_next_line(fd, &line))
+        {
+            ret++;
+            free(line);
+        }
+    }
+    else 
+    {
+        get_next_line(fd, &line);
+        ret =  ft_count_words(line, ' ');
+        free(line);
+    }
+    close(fd);
+    return (ret);
+}
 
 void    fill_matrix(int *z_line, char *line)
 {
@@ -65,8 +91,8 @@ void    read_map(char *map, t_fdf *data)
     char *line;
     int i;
 
-    data->height = get_height(map);
-    data->width = get_width(map);
+    data->height = get_mem_alloc(map, 1);
+    data->width = get_mem_alloc(map, 0);
     data->z_matrix = (int **)malloc(sizeof(int *) * (data->height + 1));
     i = 0;
     while (i <= data->height)
