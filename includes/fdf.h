@@ -29,12 +29,20 @@ typedef struct      s_fdf
     int width;
     int height;
     int **z_matrix;
-    int zoom;
+
+    float x;
+    float y;
+    int   z;
+    int   is_last;
+    int scale;
+    int scale_z;
     int color;
     int shift_x;
     int shift_y;
-
-
+    int is_isometric;
+    double  angle;
+    int     w_x;
+    int     w_y;
     void    *mlx_ptr;
     void    *win_ptr;
 }                   t_fdf;
