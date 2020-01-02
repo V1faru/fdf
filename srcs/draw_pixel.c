@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_pixel.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amurtone <amurtone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Andreas <Andreas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 09:58:11 by amurtone          #+#    #+#             */
-/*   Updated: 2019/12/20 14:34:18 by amurtone         ###   ########.fr       */
+/*   Updated: 2019/12/30 15:09:39 by Andreas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,66 +20,49 @@ float   mod(float i)
     return (i < 0) ? -i : i;
 }
 
-void    isometric(float *x, float *y, int z)
-{
-    *x = (*x - *y) * cos(0.8);
-    *y = (*x + *y) * sin(0.8) - z;
-}
-
-void    brsham(float x, float y, float x1, float y1, t_fdf *data)
+void    brsham(t_fdf a, t_fdf b, t_fdf *data)
 {
     float x_step;
     float y_step;
     int max;
-    int z;
-    int z1;
+    int color;
 
-    z = data->z_matrix[(int)y][(int)x];
-    z1 = data->z_matrix[(int)y1][(int)x1];
-    /* -----ZOOM----- */
-    x *= data->zoom;
-    y *= data->zoom;
-    x1 *= data->zoom;
-    y1 *= data->zoom;
-    /* -----COLOR----- */
-    data->color = (z || z1) ? 0xe80c0c : 0xffffff;
-    /* -----3D----- */
-    isometric(&x, &y, z);
-    isometric(&x1, &y1, z1);
-    /* -----shift----- */
-    x += data->shift_x;
-    y += data->shift_y;
-    x1 += data->shift_x;
-    y1 += data->shift_y;
-
-    x_step = x1 - x;
-    y_step = y1 - y;
-    max = MAX1(MOD(x_step), MOD(y_step));
+    set_params(&a, &b, data);
+    x_step = b.x - a.x;
+    y_step = b.y - a.y;
+    max = MAX1(mod(x_step), mod(y_step));
     x_step /= max;
     y_step /= max;
-    while ((int)(x - x1) || (int)(y - y1))
+    color = (b.z || a.z) ? 0xfc0345 : 0xBBFAFF;
+	color = (b.z != a.z) ? 0xfc031c : color;
+    while ((int)(a.x - b.x) || (int)(a.y - b.y))
     {
-        mlx_pixel_put(data->mlx_ptr, data->win_ptr, x, y, data->color);
-        x += x_step;
-        y += y_step;
+        mlx_pixel_put(data->mlx_ptr, data->win_ptr, a.x, a.y, color);
+        a.x += x_step;
+        a.y += y_step;
+        if (a.x > data->w_x || a.y > data->w_y || a.y < 0 || a.x < 0)
+			break ;
     }
 }
 
-void    draw_lines(t_fdf *data)
+void    draw_lines(t_fdf **matrix, t_fdf *data)
 {
     int x;
     int y;
 
+    print_menu(data);
     y = 0;
-    while(y < data->height)
+    while(matrix[y])
     {
         x = 0;
-        while(x < data->width)
+        while(1)
         {
-            if (x < data->width - 1)
-                brsham(x, y, x + 1, y, data);
-            if (y < data->height - 1)
-                brsham(x, y, x, y + 1, data);
+            if (matrix[y + 1])
+                brsham(matrix[y][x], matrix[y + 1][x], data);
+            if (!matrix[y][x].is_last)
+				brsham(matrix[y][x], matrix[y][x + 1], data);
+			if (matrix[y][x].is_last)
+				break ;
             x++;
         }
         y++;

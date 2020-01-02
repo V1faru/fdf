@@ -3,46 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amurtone <amurtone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Andreas <Andreas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 17:16:51 by amurtone          #+#    #+#             */
-/*   Updated: 2019/12/17 18:08:47 by amurtone         ###   ########.fr       */
+/*   Updated: 2020/01/02 09:46:56 by Andreas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-/*
-int     get_height(char *map)
-{
-    char *line;
-    int fd;
-    int height;
 
-    fd = open(map, O_RDONLY, 0);
-    height = 0;
-    while(get_next_line(fd, &line))
-    {
-        height++;
-        free(line);
-    }
-    close(fd);
-    return (height);
-}
-
-int     get_width(char *map)
-{
-    char *line;
-    int fd;
-    int width;
-
-    fd = open(map, O_RDONLY, 0);
-    get_next_line(fd, &line);
-    width = ft_count_words(line, ' ');
-    free(line);
-    close(fd);
-    return (width);
-}
-*/
 int     get_mem_alloc(char *map, int hw)
 {
     char *line;
@@ -69,42 +38,52 @@ int     get_mem_alloc(char *map, int hw)
     return (ret);
 }
 
-void    fill_matrix(int *z_line, char *line)
+int    fill_matrix(char *line, t_fdf **dots, int y)
 {
     char **nbrs;
-    int i;
+    int x;
 
     nbrs = ft_strsplit(line, ' ');
-    i = 0;
-    while (nbrs[i])
+    x = 0;
+    while (nbrs[x])
     {
-        z_line[i] = ft_atoi(nbrs[i]);
-        i++;
-        free(nbrs[i]);
+        dots[y][x].z = ft_atoi(nbrs[x]);
+		dots[y][x].x = x;
+		dots[y][x].y = y;
+		dots[y][x].is_last = 0;
+        ft_putnbr(x);
+		free(nbrs[x++]);
     }
+    ft_putendl("testing1");
     free(nbrs);
+	free(line);
+	dots[y][--x].is_last = 1;
+    ft_putendl("testing2");
+	return (x);
 }
 
-void    read_map(char *map, t_fdf *data)
+t_fdf    **read_map(char *map, t_fdf *data)
 {
-    int fd;
+    t_fdf **dots;
     char *line;
-    int i;
+    int fd;
+    int y;
 
     data->height = get_mem_alloc(map, 1);
     data->width = get_mem_alloc(map, 0);
-    data->z_matrix = (int **)malloc(sizeof(int *) * (data->height + 1));
-    i = 0;
-    while (i <= data->height)
-        data->z_matrix[i++] = (int *)malloc(sizeof(int) * (data->width +1));
+    dots = (t_fdf **)malloc(sizeof(t_fdf *) * (data->height + 1));
+    y = 0;
+    while (y <= data->height)
+        dots[y++] = (t_fdf *)malloc(sizeof(t_fdf) * (data->width +1));
     fd = open(map, O_RDONLY, 0);
-    i = 0;
-    while (get_next_line(fd, &line))
+    y = 0;
+    while (get_next_line(fd, &line) > 0)
     {
-        fill_matrix(data->z_matrix[i], line);
-        free(line);
-        i++;
+        fill_matrix(line, dots, y++);
+        ft_putendl("testing3");
+      //  free(line);
     }
-    data->z_matrix[i] = NULL;
+    dots[y] = NULL;
     close(fd);
+    return (dots);
 }

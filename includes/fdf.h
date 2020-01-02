@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amurtone <amurtone@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Andreas <Andreas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 11:05:38 by amurtone          #+#    #+#             */
-/*   Updated: 2019/12/20 10:44:35 by amurtone         ###   ########.fr       */
+/*   Updated: 2020/01/02 11:25:50 by Andreas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,18 @@
 # include <stdio.h>
 # include <math.h>
 # include "fdf.h"
-# include <mlx.h>
+# include "../resources/minilibx/mlx.h"
 # include "../libft/libft.h"
 
 typedef struct      s_fdf
 {
     int width;
     int height;
-    int **z_matrix;
-
     float x;
     float y;
-    int   z;
+    float z;
     int   is_last;
+    int zoom;
     int scale;
     int scale_z;
     int color;
@@ -47,9 +46,21 @@ typedef struct      s_fdf
     void    *win_ptr;
 }                   t_fdf;
 
-void    read_map(char *map, t_fdf *data);
+typedef struct      s_data
+{
+    t_fdf *data;
+    t_fdf **matrix;
+}                   t_data;
+
+t_fdf   **read_map(char *map, t_fdf *data);
 int		ft_count_words(const char *s, char c);
-void    brsham(float x, float y, float x1, float y1, t_fdf *data);
-void    draw_lines(t_fdf *data);
+void    brsham(t_fdf a, t_fdf b, t_fdf *data);
+void    draw_lines(t_fdf **matrix, t_fdf *data);
+void    print_menu(t_fdf *data);
+void    isometric(t_fdf *dot, double angle);
+void    set_params(t_fdf *a, t_fdf *b, t_fdf *data);
+int		deal_key(int key, t_data *data);
+void	new_window(int key, t_fdf *data, t_fdf **matrix);
+
 
 #endif
