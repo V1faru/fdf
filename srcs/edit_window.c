@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   edit_window.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Andreas <Andreas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amurtone <amurtone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 15:54:47 by Andreas           #+#    #+#             */
-/*   Updated: 2019/12/30 20:43:50 by Andreas          ###   ########.fr       */
+/*   Updated: 2020/01/04 10:43:48 by amurtone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,27 +39,27 @@ void	change_window_size(int key, t_fdf *data)
 {
 	if (check_win_size(key, data))
 		return ;
-	if (key == 6)
-		data->w_x -= 100;
-	if (key == 7)
+	if (key == 6) // 'z'
+		data->w_x -= 100; 
+	if (key == 7) // 'x'
 		data->w_x += 100;
-	if (key == 0)
+	if (key == 0) // 'a'
 		data->w_y -= 100;
-	if (key == 1)
+	if (key == 1) // 's'
 		data->w_y += 100;
-	if (key == 3)
+	if (key == 3) // 'f'
 		full_screen(data);
 }
 
-void	new_window(int key, t_fdf *data, t_fdf **matrix)
+void	new_window(int key, t_data *data)
 {
-	change_window_size(key, data);
-	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	data->mlx_ptr = mlx_init();
-	data->win_ptr = mlx_new_window(data->mlx_ptr, data->w_x, data->w_y, "FDF");
-	data->shift_x = data->w_x / 3;
-	data->shift_y = data->w_y / 3;
-	draw_lines(matrix, data);
-	mlx_key_hook(data->win_ptr, deal_key, data);
-	mlx_loop(data->mlx_ptr);
+	change_window_size(key, data->data);
+	mlx_destroy_window(data->data->mlx_ptr, data->data->win_ptr);
+	data->data->mlx_ptr = mlx_init();
+	data->data->win_ptr = mlx_new_window(data->data->mlx_ptr, data->data->w_x, data->data->w_y, "FDF");
+	data->data->shift_x = data->data->w_x / 3;
+	data->data->shift_y = data->data->w_y / 3;
+	draw_lines(data->matrix, data->data);
+	mlx_key_hook(data->data->win_ptr, deal_key, data);
+	mlx_loop(data->data->mlx_ptr);
 }

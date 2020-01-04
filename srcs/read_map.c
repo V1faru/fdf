@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Andreas <Andreas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amurtone <amurtone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 17:16:51 by amurtone          #+#    #+#             */
-/*   Updated: 2020/01/02 09:46:56 by Andreas          ###   ########.fr       */
+/*   Updated: 2020/01/04 10:29:00 by amurtone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,11 @@ int    fill_matrix(char *line, t_fdf **dots, int y)
 		dots[y][x].x = x;
 		dots[y][x].y = y;
 		dots[y][x].is_last = 0;
-        ft_putnbr(x);
 		free(nbrs[x++]);
     }
-    ft_putendl("testing1");
     free(nbrs);
-	free(line);
+	// free(line);
 	dots[y][--x].is_last = 1;
-    ft_putendl("testing2");
 	return (x);
 }
 
@@ -80,8 +77,7 @@ t_fdf    **read_map(char *map, t_fdf *data)
     while (get_next_line(fd, &line) > 0)
     {
         fill_matrix(line, dots, y++);
-        ft_putendl("testing3");
-      //  free(line);
+        free(line);
     }
     dots[y] = NULL;
     close(fd);

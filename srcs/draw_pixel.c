@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   draw_pixel.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Andreas <Andreas@student.42.fr>            +#+  +:+       +#+        */
+/*   By: amurtone <amurtone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 09:58:11 by amurtone          #+#    #+#             */
-/*   Updated: 2019/12/30 15:09:39 by Andreas          ###   ########.fr       */
+/*   Updated: 2020/01/04 15:21:30 by amurtone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/fdf.h"
-
-# define MAX1(a,b) (a > b ? a : b)
-# define MOD(a) ((a < 0) ? -a : a)
 
 float   mod(float i)
 {
@@ -33,8 +30,8 @@ void    brsham(t_fdf a, t_fdf b, t_fdf *data)
     max = MAX1(mod(x_step), mod(y_step));
     x_step /= max;
     y_step /= max;
-    color = (b.z || a.z) ? 0xfc0345 : 0xBBFAFF;
-	color = (b.z != a.z) ? 0xfc031c : color;
+    color = (b.z || a.z) ? 0xf8fc03 : 0xf003fc;
+	color = (b.z != a.z) ? 0x03fcbe : color;
     while ((int)(a.x - b.x) || (int)(a.y - b.y))
     {
         mlx_pixel_put(data->mlx_ptr, data->win_ptr, a.x, a.y, color);
