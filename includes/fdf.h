@@ -6,7 +6,7 @@
 /*   By: amurtone <amurtone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 11:05:38 by amurtone          #+#    #+#             */
-/*   Updated: 2020/01/09 13:11:34 by amurtone         ###   ########.fr       */
+/*   Updated: 2020/01/10 09:18:02 by amurtone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <math.h>
-# include <mlx.h>
+# include "resources/minilibx/mlx.h"
 # include "fdf.h"
 # include "../libft/libft.h"
 
