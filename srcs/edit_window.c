@@ -6,7 +6,7 @@
 /*   By: amurtone <amurtone@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/30 15:54:47 by Andreas           #+#    #+#             */
-/*   Updated: 2020/01/04 10:43:48 by amurtone         ###   ########.fr       */
+/*   Updated: 2020/01/07 14:49:08 by amurtone         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int		check_win_size(int key, t_fdf *data)
 
 void	full_screen(t_fdf *data)
 {
-	static int old_x;
-	static int old_y;
+	static	int old_x;
+	static	int old_y;
 
 	if (data->w_x != 2560)
 	{
@@ -39,15 +39,15 @@ void	change_window_size(int key, t_fdf *data)
 {
 	if (check_win_size(key, data))
 		return ;
-	if (key == 6) // 'z'
-		data->w_x -= 100; 
-	if (key == 7) // 'x'
+	if (key == 6)
+		data->w_x -= 100;
+	if (key == 7)
 		data->w_x += 100;
-	if (key == 0) // 'a'
+	if (key == 0)
 		data->w_y -= 100;
-	if (key == 1) // 's'
+	if (key == 1)
 		data->w_y += 100;
-	if (key == 3) // 'f'
+	if (key == 3)
 		full_screen(data);
 }
 
@@ -56,7 +56,8 @@ void	new_window(int key, t_data *data)
 	change_window_size(key, data->data);
 	mlx_destroy_window(data->data->mlx_ptr, data->data->win_ptr);
 	data->data->mlx_ptr = mlx_init();
-	data->data->win_ptr = mlx_new_window(data->data->mlx_ptr, data->data->w_x, data->data->w_y, "FDF");
+	data->data->win_ptr = mlx_new_window(
+		data->data->mlx_ptr, data->data->w_x, data->data->w_y, "FDF");
 	data->data->shift_x = data->data->w_x / 3;
 	data->data->shift_y = data->data->w_y / 3;
 	draw_lines(data->matrix, data->data);
